@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --background: #0f172a;
+            --text: #f1f5f9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: var(--background);
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+        }
+
+        .container {
+            position: relative;
+            height: 100vh;
+            background: radial-gradient(circle at top right, 
+                rgba(99, 102, 241, 0.15),
+                rgba(139, 92, 246, 0.15),
+                rgba(236, 72, 153, 0.15));
+        }
+
+        .glass-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+        }
+
+        .title {
+            font-size: 3rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: rgba(241, 245, 249, 0.8);
+            line-height: 1.5;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 1rem 2rem;
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .button.secondary {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(100px, 100px) rotate(360deg); }
+        }
+
+        .social-proof {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2rem;
+            font-size: 0.9rem;
+            color: rgba(241, 245, 249, 0.6);
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-number {
+            font-weight: 600;
+            color: var(--text);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="floating-elements">
+            <div class="floating-element" style="width: 300px; height: 300px; top: -150px; left: -150px;"></div>
+            <div class="floating-element" style="width: 200px; height: 200px; bottom: -100px; right: -100px;"></div>
+        </div>
+
+        <div class="glass-card">
+            <div class="header">
+                <h1 class="title">Animation Studio</h1>
+                <p class="subtitle">Create stunning animations with our next-generation tools and bring your ideas to life.</p>
+            </div>
+
+            <div class="button-container">
+                <button class="button" onclick="alert('Welcome to the future of animation!')">Get Started</button>
+                <button class="button secondary" onclick="alert('Demo coming soon!')">Watch Demo</button>
+            </div>
+        </div>
+
+        <div class="social-proof">
+            <div class="stat">
+                <span class="stat-number">50K+</span>
+                <span>Artists</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">1M+</span>
+                <span>Animations</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">100+</span>
+                <span>Countries</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Parallax effect for floating elements
+        document.addEventListener('mousemove', (e) => {
+            const elements = document.querySelectorAll('.floating-element');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            elements.forEach((element) => {
+                const elementX = (mouseX - 0.5) * 50;
+                const elementY = (mouseY - 0.5) * 50;
+                element.style.transform = `translate(${elementX}px, ${elementY}px)`;
+            });
+        });
+    </script>
+</body>
+</html> 
